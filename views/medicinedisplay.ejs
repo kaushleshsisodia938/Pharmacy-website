@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CRUD Table</title>
+    <link rel="stylesheet" type="text/css" href="/css/admin_portal_medicine.css">
+    
+    <link href="/css/portal.css" rel="stylesheet"/>
+  </head>
+  <style>
+    table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  th, td {
+    text-align: left;
+    padding: 8px;
+  }
+  
+  th {
+    background-color: #333;
+    color: white;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  form {
+    display: inline-block;
+  }
+  
+  button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+  
+  input[type=text] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+  }
+  </style>
+  <body>
+    <nav>
+      <ul>
+        <li><a href="/adminportal">Home</a></li>
+        <li><a href="/medicinedisplay">Medicines</a></li>
+        <li><a href="/userdisplay">Users</a></li>
+        <li><a href="/">Logout</a></li>
+      </ul>
+  </nav>
+    <h1>CRUD Table</h1>
+    <form action="/add" method="post">
+      <input type="text" name="letter" placeholder="Letter">
+      <input type="text" name="image" placeholder="image-url">
+      <input type="text" name="name" placeholder="Name" >
+      <input type="text" name="price1" placeholder="Price1">
+      <input type="text" name="price2" placeholder="Price2">
+      <button type="submit">Add</button>
+    </form>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>price1</th>
+          <th>price2</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% data.forEach(function(record) { %>
+          <tr>
+            <td><%= record._id %></td>
+            <td><%= record.name %></td>
+            <td><%= record.price1 %></td>
+            <td><%= record.price2 %></td>
+            <td>
+              <form action="/updatemedicine" method="post">
+                <input type="hidden" name="id" value="<%= record._id %>">
+                <input type="text" name="name" value="<%= record.Name %>">
+                <input type="text" name="price1" value="<%= record.price1 %>">
+                <input type="text" name="price2" value="<%= record.price2 %>">
+                <button type="submit">Update</button>
+              </form>
+              <form action="/deletemedicine" method="post">
+                <input type="hidden" name="id" value="<%= record._id %>">
+                <button type="submit">Delete</button>
+              </form>
+            </td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </body>
+</html>
